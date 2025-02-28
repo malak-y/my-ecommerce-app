@@ -57,7 +57,7 @@ const App = () => {
         <Route path="/checkoutpage" element={<Layout><CheckoutPage /></Layout>} />
         <Route path="/checkoutpage" element={<Layout><CheckoutPage /></Layout>} />
         <Route path="/contact" element={<Layout><Contact /></Layout>} />
-        <Route path="/product/:id" element={<ProductDetails />} />
+        <Route path="/product/:id" element={<Layout><ProductDetails /></Layout>} />
       </Routes>
     </Router>
   );

@@ -61,7 +61,7 @@ const CartPage = () => {
       </Table>
       <Row className="mt-3">
         <Col md={6}>
-          <Button variant="secondary" className="me-2">Return To Shop</Button>
+          <Button variant="secondary" className="me-2" onClick={() => navigate("/")}>Return To Shop</Button>
         </Col>
         <Col md={6}>
           <Card className="p-3">

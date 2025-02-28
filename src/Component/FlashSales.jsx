@@ -21,6 +21,7 @@ const FlashSales = () => {
     setWishlist(updatedWishlist);
     localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
   };
+
   const handleAddToCart = (product) => {
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
     const existingProduct = cart.find((item) => item.id === product.id);
@@ -30,18 +31,29 @@ const FlashSales = () => {
       cart.push({ ...product, quantity: 1 }); 
     }
     localStorage.setItem("cart", JSON.stringify(cart));
-  
+
+    // Set success message
     setSuccessMessage(`${product.title} added successfully!`);
+    
+    // Hide message after 1.5 seconds
     setTimeout(() => {
       setSuccessMessage("");
-    }, 1000);
+    }, 1500);
   };
-  
-
 
   return (
-    <div className="container mt-5">
-      <h2 className="fw-bold">Flash Sales</h2>
+    <div className="container mt-5 position-relative">
+      {/* Success Message at the Top */}
+      {successMessage && (
+        <div
+          className="alert alert-success text-center position-absolute w-100 top-0 start-50 translate-middle-x"
+          style={{ zIndex: "1000" }}
+        >
+          {successMessage}
+        </div>
+      )}
+
+      <h2 className="fw-bold mt-4">Flash Sales</h2>
 
       <div className="d-flex gap-4 flex-wrap">
         {products.map((product) => (
@@ -79,8 +91,8 @@ const FlashSales = () => {
 
               {/* Add to Cart Button */}
               <button className="add-to-cart-btn" onClick={() => handleAddToCart(product)}>
-                  Add to Cart
-                </button>
+                Add to Cart
+              </button>
             </div>
             <div className="mt-3">
               <h6 className="fw-semibold">{product.title.substring(0, 20)}...</h6>

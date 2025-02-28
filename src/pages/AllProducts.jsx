@@ -13,7 +13,6 @@ const AllProducts = () => {
       .then((res) => res.json())
       .then((data) => setProducts(data));
 
-    // Load wishlist from local storage
     const storedWishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
     setWishlist(storedWishlist);
   }, []);
@@ -44,11 +43,14 @@ const AllProducts = () => {
     }, 3000);
   };
 
+  const handleProductClick = (id) => {
+    navigate(`/product/${id}`); 
+  };
+
   return (
     <div className="container mt-5">
       <h2 className="fw-bold text-center mb-4">All Products</h2>
 
-      {/* Success Message */}
       {successMessage && (
         <div className="alert alert-success text-center">{successMessage}</div>
       )}
@@ -58,7 +60,8 @@ const AllProducts = () => {
           <div
             key={product.id}
             className="product-card-container"
-            style={{ width: "250px", textAlign: "center", overflow: "hidden" }}
+            style={{ width: "250px", textAlign: "center", overflow: "hidden", cursor: "pointer" }}
+            onClick={() => handleProductClick(product.id)} 
           >
             <div className="card p-3 position-relative product-card">
               <div className="position-relative">
@@ -69,7 +72,6 @@ const AllProducts = () => {
                   style={{ height: "200px", objectFit: "contain" }}
                 />
 
-                {/* Wishlist & View Icons */}
                 <div
                   className="position-absolute top-0 end-0 d-flex flex-column gap-2 p-2"
                   style={{
@@ -79,27 +81,29 @@ const AllProducts = () => {
                   }}
                 >
                   <FaHeart
-                    className={`text-dark fs-5 ${
-                      wishlist.find((item) => item.id === product.id)
-                        ? "text-danger"
-                        : ""
-                    }`}
-                    onClick={() => handleAddToWishlist(product)}
+                    className={`text-dark fs-5 ${wishlist.find((item) => item.id === product.id) ? "text-danger" : ""}`}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleAddToWishlist(product);
+                    }}
                     style={{ cursor: "pointer" }}
                   />
                   <FaRegEye className="text-dark fs-5" />
                 </div>
 
-                {/* Add to Cart Button */}
-                <button className="add-to-cart-btn" onClick={() => handleAddToCart(product)}>
+                <button 
+                  className="add-to-cart-btn" 
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleAddToCart(product);
+                  }}
+                >
                   Add to Cart
                 </button>
               </div>
 
               <div className="mt-3">
-                <h6 className="fw-semibold">
-                  {product.title.substring(0, 20)}...
-                </h6>
+                <h6 className="fw-semibold">{product.title.substring(0, 20)}...</h6>
                 <p className="text-danger fw-bold">${product.price}</p>
               </div>
             </div>
@@ -107,7 +111,6 @@ const AllProducts = () => {
         ))}
       </div>
 
-      {/* CSS for Hover Effect */}
       <style>
         {`
           .product-card-container {

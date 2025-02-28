@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Container, Row, Col, Card, Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import { Container, Row, Col, Card, Button, Toast } from "react-bootstrap";
 import { FaHeart, FaEye, FaStar, FaRegStar } from "react-icons/fa";
 
 const products = [
@@ -73,6 +74,23 @@ const products = [
 
 const ProductShowcase = () => {
   const [hovered, setHovered] = useState(null);
+  const [showToast, setShowToast] = useState(false);
+  const [addedProduct, setAddedProduct] = useState("");
+  const navigate = useNavigate();
+
+  // Handle Add to Cart
+  const handleAddToCart = (product) => {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    cart.push(product);
+    localStorage.setItem("cart", JSON.stringify(cart));
+
+    setAddedProduct(product.name);
+    setShowToast(true);
+
+    // Redirect to Cart Page after 1.5 seconds
+    setTimeout(() => {
+    }, 1500);
+  };
 
   return (
     <Container>
@@ -106,7 +124,7 @@ const ProductShowcase = () => {
                   <FaEye className="text-dark" />
                 </div>
 
-               
+                {/* Add To Cart Button */}
                 <div
                   className="position-absolute bottom-0 start-0 w-100"
                   style={{
@@ -116,13 +134,14 @@ const ProductShowcase = () => {
                     padding: "8px",
                   }}
                 >
-                <Button
-                variant="dark"
-                className="fw-bold w-100"
-                style={{ color: "white", backgroundColor: "black" }}
-              >
-                Add To Cart
-              </Button>              
+                  <Button
+                    variant="dark"
+                    className="fw-bold w-100"
+                    style={{ color: "white", backgroundColor: "black" }}
+                    onClick={() => handleAddToCart(product)}
+                  >
+                    Add To Cart
+                  </Button>
                 </div>
               </div>
               <Card.Body className="text-center d-flex flex-column justify-content-between">
@@ -143,6 +162,26 @@ const ProductShowcase = () => {
           </Col>
         ))}
       </Row>
+
+      {/* Success Message Toast */}
+      <Toast
+        onClose={() => setShowToast(false)}
+        show={showToast}
+        delay={1500}
+        autohide
+        style={{
+          position: "fixed",
+          top: "20px",
+          right: "20px",
+          backgroundColor: "#28a745",
+          color: "white",
+          padding: "10px",
+          borderRadius: "5px",
+        }}
+      >
+        <Toast.Body>{addedProduct} added successfully!</Toast.Body>
+      </Toast>
+
       <div className="text-center mt-3">
         <Button variant="danger">View All Products</Button>
       </div>
