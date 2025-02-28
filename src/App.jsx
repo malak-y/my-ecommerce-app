@@ -31,7 +31,7 @@ Layout.propTypes = {
 
 const App = () => {
   return (
-    <Router>
+    <Router basename="/my-ecommerce-app">
       <Routes>
         <Route
           path="/"
