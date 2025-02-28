@@ -1,0 +1,17 @@
+.footer-container {
+  background-color: black; /* Black background */
+  color: white; /* White text for contrast */
+  padding: 40px 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.cart-btn-container {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.card:hover .cart-btn-container {
+  opacity: 1;
+}

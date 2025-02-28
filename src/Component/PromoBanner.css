@@ -1,0 +1,43 @@
+.promo-banner {
+    background: linear-gradient(to right, black, #111);
+    padding: 40px;
+    border-radius: 10px;
+  }
+  .text-success {
+    color: #00FF66 !important; /* Light green */
+  }
+  
+  .time-box {
+    background: white;
+    color: black;
+    border-radius: 50%;
+    width: 50px; 
+    height: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px; 
+  }
+  
+  .time-box h4 {
+    font-size: 14px;
+    margin: 0;
+  }
+  
+  .time-box p {
+    font-size: 10px;
+    margin: 0;
+  }
+  
+  .custom-light-green {
+    background-color:#00FF66; 
+    border: none;
+    color: black; 
+  }
+  
+  .custom-light-green:hover {
+    background-color: #7CFC00; 
+    color: white;
+  }
+  

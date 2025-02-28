@@ -1,0 +1,9 @@
+.equal-card {
+    height: 250px; /* Ensure both cards have the same height */
+  }
+  
+  .equal-card img {
+    height: 100%;
+    object-fit: cover; /* Ensure images fill the space properly */
+  }
+  
